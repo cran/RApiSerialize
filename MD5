@@ -1,0 +1,12 @@
+8634cdd50cf9846f0ad4814ffacf8bfd *ChangeLog
+673848ffc7eda229a0b857b0d8c7be1e *DESCRIPTION
+231c89e9288ad4d777ac833a33233b22 *NAMESPACE
+8fb375ccbc62e70597b3a9500eb681d4 *R/serialization.R
+d74f3dbad066022c2a86a83aa56e72cb *README.md
+598bcff3cffcc2ae97b5e223e72eeec2 *inst/NEWS.Rd
+85877331cf3727dde6da6d8d1c0ddbfb *inst/include/RApiSerializeAPI.h
+c8158ade6f2def8522b4ff501aa9e722 *man/RApiSerialize-package.Rd
+80f1e16b467ac6a203c773a3889ea0c4 *src/init.c
+ad34a64249aa527810bae5883a64a659 *src/serialize.cpp
+bf0a5475dffcfa5b095bdbc4d1008daf *tests/simpleTests.R
+c88c1c13e88c8c0470fc589042c5be9b *tests/simpleTests.Rout.save
