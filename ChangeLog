@@ -1,3 +1,70 @@
+2022-08-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.1.1
+
+2022-08-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version and date
+
+	* src/serialize.cpp (serializeToRaw): Support serialization version
+	argument to select 2 (pre-ALTREP) or 3 (with ALTREP support)
+	* src/init.c (callMethods): Update interface
+	* inst/include/RApiSerializeAPI.h (serializeToRaw): Idem
+	* R/serialization.R (serializeToRaw): Support new argument
+	* man/RApiSerialize-package.Rd: Document new argument
+
+	* README.md: Update http URLs to https
+
+	* NAMESPACE: Turn on registration and fixes for library load,
+	export two functions explicitly
+	* R/serialization.R: Use registered and fixed symbols in calls
+
+	* src/serialize.cpp (CloseMemOutPStream): Minor upstream update
+
+	* tests/simpleTests.R: Updated tests
+	* tests/simpleTests.Rout.save: Idem
+
+2021-04-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (URL, BugRreports): Added to DESCRIPTION file
+
+2021-01-01  Dirk Eddelbuettel  <edd@debian.org>
+
+        * .github/workflows/ci.yaml: Add CI runner using r-ci
+	* README.md: Add new CI badge
+
+2020-06-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Added 'last commit' badge
+
+	* .travis.yml: Switch to R 4.0.0 and bionic
+
+2019-01-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* DESCRIPTION (Description): Minor rewording
+
+	* README.md: Added dependencies badge
+
+2018-09-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Minor Travis CI update
+
+2017-04-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Switch to run.sh from maintained for R and Travis
+
+2015-03-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/serialize.cpp: Added some comments regarding differences
+	between this file and the original src/main/serialize.c code
+
+2014-05-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (and other files): Per email by Junji, reordered all
+	references to first list Ei-ji and then him
+
 2014-04-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Finalizing initial public version 0.1.0
@@ -22,7 +89,7 @@
 
 	* DESCRIPTION: Prepating initial version 0.1.0
 
-	* src/serialize.cpp: With credits to Junji, Ei-ji and R Core
+	* src/serialize.cpp: With credits to Ei-ji, Junji, and R Core
 	* src/init.c: Exporting for use by other R package
 
 	* inst/include/RApiSerializeAPI.h: Exported header used by others

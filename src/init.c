@@ -2,7 +2,7 @@
 /*
  *  RApiSerialize -- Packge to provide Serialization as in the R API 
  *
- *  Copyright (C) 2014  Dirk Eddelbuettel 
+ *  Copyright (C) 2014 - 2022  Dirk Eddelbuettel
  *
  *  This file is part of RApiSerialize.
  *
@@ -27,13 +27,13 @@
 
 /*  function declarations -- could be in external header file if used  */
 /*  by functions in anotherfile in this package                        */
-SEXP serializeToRaw(SEXP object);
+SEXP serializeToRaw(SEXP object, SEXP versionSexp);
 SEXP unserializeFromRaw(SEXP object);
 
 
 /* definition of functions provided for .Call() 			*/
 static const R_CallMethodDef callMethods[] = {
-    { "serializeToRaw",    	(DL_FUNC) &serializeToRaw,          1 },
+    { "serializeToRaw",    	(DL_FUNC) &serializeToRaw,          2 },
     { "unserializeFromRaw",  	(DL_FUNC) &unserializeFromRaw,      1 },
     { NULL,                	NULL,                               0 }
 };
@@ -43,7 +43,7 @@ static const R_CallMethodDef callMethods[] = {
 /* the functions we are exporting here					*/
 void R_init_RApiSerialize(DllInfo *info) {
 
-    /* used by external packages linking to internal xts code from C */
+    /* used by external packages linking to internal serialization code from C */
     R_RegisterCCallable("RApiSerialize", "serializeToRaw", 
                         (DL_FUNC) &serializeToRaw);
     R_RegisterCCallable("RApiSerialize", "unserializeFromRaw",  

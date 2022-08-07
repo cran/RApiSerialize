@@ -2,8 +2,8 @@
 //
 //  RApiSerialize -- Packge to provide Serialization as in the R API 
 //
-//  Copyright (C) 2014         Dirk Eddelbuettel 
-//  Copyright (C) 2013 - 2014  Junji Nakano and Ei-ji Nakama
+//  Copyright (C) 2014 - 2022  Dirk Eddelbuettel
+//  Copyright (C) 2013 - 2014  Ei-ji Nakama and Junji Nakano
 //  Copyright (C) 1995 - 2013  The R Core Team
 //
 //  This file is part of RApiSerialize.
@@ -25,6 +25,17 @@
 
 // serialize/unserialize from Rhpc package, which takes it from R-3.0.2
 // also looked into with binary serialization (as alternative) to ascii
+
+
+// this file does a subset of the things done by src/main/serialize.c,
+// inparticular, in the serializeToRaw() function
+//    version = R_DefaultSerializeVersion;
+//    type = R_pstream_xdr_format;
+// ie no binary or ascii 'type' is supported. Similarly, in 
+// function  unserializeFromRaw() only TYPEOF(object)==RAWSXP is
+// supported, and no 'hook' or 'fun' arguments are supported
+//
+// last checked agains R-devel in March 2015 prior to the R 3.2.0 release 
 
 
 /*
@@ -172,7 +183,11 @@ static SEXP CloseMemOutPStream(R_outpstream_t stream)
 {
     SEXP val;
     membuf_t mb = (membuf_t) stream->data;
-
+    /* duplicate check, for future proofing */
+#ifndef LONG_VECTOR_SUPPORT
+    if(mb->count > INT_MAX)
+	error(_("serialization is too large to store in a raw vector"));
+#endif
     PROTECT(val = allocVector(RAWSXP, mb->count));
     memcpy(RAW(val), mb->buf, mb->count);
     free_mem_buffer(mb);
@@ -182,14 +197,22 @@ static SEXP CloseMemOutPStream(R_outpstream_t stream)
 
 /** ---- **/
 
-extern "C" SEXP serializeToRaw(SEXP object) {
+extern "C" SEXP serializeToRaw(SEXP object, SEXP versionSexp = R_NilValue) {
     struct R_outpstream_st out;
     R_pstream_format_t type;
     int version;
     struct membuf_st mbs;
     SEXP val;
-    
-    version = R_DefaultSerializeVersion;
+
+    if (versionSexp == R_NilValue) {
+      version = R_DefaultSerializeVersion;
+    } else {
+      version = Rf_asInteger(versionSexp);
+    }
+    if (version == NA_INTEGER || version <= 0) {
+	Rf_error("bad version value");
+    }
+
     //type = R_pstream_binary_format;
     //type = R_pstream_ascii_format;
     type = R_pstream_xdr_format;
