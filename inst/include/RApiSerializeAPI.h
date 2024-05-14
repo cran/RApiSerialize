@@ -1,8 +1,7 @@
-/* -*- mode: C; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*- */
 /*
  *  RApiSerialize -- Packge to provide Serialization as in the R API 
  *
- *  Copyright (C) 2014  Dirk Eddelbuettel 
+ *  Copyright (C) 2014-2024  Dirk Eddelbuettel
  *
  *  This file is part of RApiSerialize.
  *
@@ -47,10 +46,11 @@ extern "C" {
 /* provided the interface for the function exported 	*/
 /* in ../src/init.c via R_RegisterCCallable()		*/
 
-SEXP attribute_hidden serializeToRaw(SEXP x, SEXP ver = R_NilValue) {
-    static SEXP(*fun)(SEXP, SEXP) =
-        (SEXP(*)(SEXP,SEXP)) R_GetCCallable("RApiSerialize", "serializeToRaw");
-    return fun(x, ver);
+SEXP attribute_hidden serializeToRaw(SEXP x, SEXP ver = R_NilValue,
+                                     SEXP use_xdr = R_NilValue) {
+    static SEXP(*fun)(SEXP, SEXP, SEXP) =
+        (SEXP(*)(SEXP,SEXP,SEXP)) R_GetCCallable("RApiSerialize", "serializeToRaw");
+    return fun(x, ver, use_xdr);
 }
 
 SEXP attribute_hidden unserializeFromRaw(SEXP x) {
