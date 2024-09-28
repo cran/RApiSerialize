@@ -1,10 +1,13 @@
 Package: RApiSerialize
 Type: Package
 Title: R API Serialization
-Version: 0.1.3
-Date: 2024-05-13
-Author: Dirk Eddelbuettel, Ei-ji Nakama, Junji Nakano, and R Core (original code)
-Maintainer: Dirk Eddelbuettel <edd@debian.org>
+Version: 0.1.4
+Date: 2024-09-28
+Authors@R: c(person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org",
+                    comment = c(ORCID = "0000-0001-6419-907X")),
+             person("Ei-ji", "Nakama", role = "aut", comment = "Code in package Rhpc"),
+             person("Junji", "Nakano", role = "aut", comment = "Code in package Rhpc"),
+             person("R Core", role = "aut", comment = "Code in R file src/main/serialize.c"))
 Description: Access to the internal R serialization code is provided for
  use by other packages at the C function level by using the registration of
  native function mechanism. Client packages simply include a single header
@@ -12,12 +15,17 @@ Description: Access to the internal R serialization code is provided for
  the Rhpc package by Ei-ji Nakama and Junji Nakano which also includes a
  (partial) copy of the file src/main/serialize.c from R itself. The R Core
  group is the original author of the serialization code made available by
- this package. 
+ this package.
 URL: https://github.com/eddelbuettel/rapiserialize,
         https://dirk.eddelbuettel.com/code/rapiserialize.html
 BugReports: https://github.com/eddelbuettel/rapiserialize/issues
 License: GPL (>= 2)
 NeedsCompilation: yes
-Packaged: 2024-05-13 16:59:16 UTC; edd
+Packaged: 2024-09-28 16:23:20 UTC; edd
+Author: Dirk Eddelbuettel [aut, cre] (<https://orcid.org/0000-0001-6419-907X>),
+  Ei-ji Nakama [aut] (Code in package Rhpc),
+  Junji Nakano [aut] (Code in package Rhpc),
+  R Core [aut] (Code in R file src/main/serialize.c)
+Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Repository: CRAN
-Date/Publication: 2024-05-14 07:43:22 UTC
+Date/Publication: 2024-09-28 16:50:02 UTC

@@ -1,5 +1,5 @@
 /*
- *  RApiSerialize -- Packge to provide Serialization as in the R API 
+ *  RApiSerialize -- Package to provide Serialization as in the R API
  *
  *  Copyright (C) 2014-2024  Dirk Eddelbuettel
  *
@@ -20,8 +20,13 @@
  */
 
 
-/* This header file provides the interface used by other packages, */
-/* and should be included once per package.                        */
+/*
+   This header file provides the interface used by other packages,
+   and should be included once per package. At present, the file
+   contains default arguments to serializeToRaw which make use from
+   C++ easier. We may remove these in a future release.
+*/
+
 
 #ifndef _R_Api_Serialize_API_h_
 #define _R_Api_Serialize_API_h_
@@ -54,15 +59,24 @@ SEXP attribute_hidden serializeToRaw(SEXP x, SEXP ver = R_NilValue,
 }
 
 SEXP attribute_hidden unserializeFromRaw(SEXP x) {
-    static SEXP(*fun)(SEXP) = 
+    static SEXP(*fun)(SEXP) =
         (SEXP(*)(SEXP)) R_GetCCallable("RApiSerialize", "unserializeFromRaw");
     return fun(x);
 }
 
 #ifdef __cplusplus
 }
-#endif
+
+/* add a namespace for C++ use */
+namespace R {
+    inline SEXP serializeToRaw(SEXP x, SEXP ver = R_NilValue, SEXP use_xdr = R_NilValue) {
+        return ::serializeToRaw(x, ver, use_xdr);
+    }
+    inline SEXP unserializeFromRaw(SEXP x) {
+        return ::unserializeFromRaw(x);
+    }
+}
+
+#endif /* __cplusplus */
 
 #endif /* _R_Api_Serialize_API_h */
-
-
